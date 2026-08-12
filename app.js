@@ -58,16 +58,7 @@
     });
   }
 
-  function initBg() {
-    const img = document.querySelector(".bg-photo");
-    if (!img) return;
-    img.addEventListener("error", function () {
-      img.style.display = "none";
-    });
-  }
-
   function init() {
-    initBg();
     mountAllGlass();
   }
 

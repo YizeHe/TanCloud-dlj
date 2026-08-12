@@ -1,7 +1,7 @@
 /* Tan云短链 — Liquid Glass landing (from liquidglass2/showcase) */
 
 :root {
-  --bg: #07070e;
+  --bg: #0a0a12;
   --ink: #f5f5f7;
   --ink-dim: rgba(245, 245, 247, 0.72);
   --ink-mute: rgba(245, 245, 247, 0.48);
@@ -31,48 +31,172 @@ body {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---- Photographic background ---- */
-.bg-photo {
+/* ---- 3D orbs background (no image) ---- */
+.bg-scene {
   position: fixed;
   inset: 0;
   z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 45%, #16162a 0%, transparent 70%),
+    linear-gradient(160deg, #0c0c16 0%, #0a0a12 45%, #0e101c 100%);
   pointer-events: none;
-  user-select: none;
 }
 
-.bg-fallback {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Pink — top-left, plump 3D sphere */
+.orb-pink {
+  width: min(62vw, 520px);
+  height: min(62vw, 520px);
+  top: -12%;
+  left: -10%;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, #3d6b4a 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 80% 70%, #8a6b3d 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, #2a4a6b 0%, transparent 45%),
-    linear-gradient(165deg, #1a2a1e 0%, #0e1520 50%, #1a1828 100%);
+    radial-gradient(
+      circle at 32% 28%,
+      #fff5fa 0%,
+      #ffd0e8 12%,
+      #ff8fc4 28%,
+      #f45aa0 48%,
+      #c42d78 68%,
+      #7a1848 88%,
+      #3a0c24 100%
+    );
+  box-shadow:
+    0 40px 100px rgba(244, 90, 160, 0.45),
+    0 0 80px rgba(255, 120, 180, 0.35),
+    inset -28px -36px 60px rgba(60, 8, 30, 0.45),
+    inset 18px 22px 40px rgba(255, 255, 255, 0.35);
+  filter: saturate(1.08);
+  animation: float-pink 14s ease-in-out infinite;
+}
+
+.orb-pink::before {
+  content: "";
+  position: absolute;
+  width: 38%;
+  height: 28%;
+  top: 16%;
+  left: 18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.2) 45%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  transform: rotate(-18deg);
+}
+
+.orb-pink::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 70% 78%,
+    rgba(255, 180, 220, 0.25) 0%,
+    transparent 42%
+  );
+}
+
+/* Blue — bottom-right, plump 3D sphere */
+.orb-blue {
+  width: min(68vw, 560px);
+  height: min(68vw, 560px);
+  bottom: -16%;
+  right: -12%;
+  background:
+    radial-gradient(
+      circle at 34% 30%,
+      #eef6ff 0%,
+      #b8d9ff 12%,
+      #5aa0ff 28%,
+      #2f6fe8 48%,
+      #1a4db8 68%,
+      #0d2f78 88%,
+      #06183e 100%
+    );
+  box-shadow:
+    0 40px 110px rgba(47, 111, 232, 0.5),
+    0 0 90px rgba(90, 160, 255, 0.38),
+    inset -30px -38px 64px rgba(6, 20, 50, 0.5),
+    inset 18px 22px 42px rgba(255, 255, 255, 0.32);
+  filter: saturate(1.1);
+  animation: float-blue 16s ease-in-out infinite;
+}
+
+.orb-blue::before {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 30%;
+  top: 15%;
+  left: 17%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(200, 230, 255, 0.25) 45%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  transform: rotate(-16deg);
+}
+
+.orb-blue::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 72% 76%,
+    rgba(140, 190, 255, 0.28) 0%,
+    transparent 44%
+  );
 }
 
 .bg-scrim {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 70% at 50% 40%, rgba(7, 7, 14, 0.12), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 20%, rgba(8, 8, 16, 0.35) 100%),
     linear-gradient(
       180deg,
-      rgba(7, 7, 14, 0.22) 0%,
-      rgba(7, 7, 14, 0.1) 40%,
-      rgba(7, 7, 14, 0.4) 100%
+      rgba(8, 8, 16, 0.18) 0%,
+      rgba(8, 8, 16, 0.08) 45%,
+      rgba(8, 8, 16, 0.28) 100%
     );
+}
+
+@keyframes float-pink {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(18px, 22px) scale(1.03);
+  }
+}
+
+@keyframes float-blue {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-16px, -18px) scale(1.025);
+  }
 }
 
 /* ---- Shared glass material (optics via liquid-glass.js) ---- */
@@ -228,6 +352,22 @@ body {
   letter-spacing: 0.02em;
 }
 
+@media (max-width: 640px) {
+  .orb-pink {
+    width: min(78vw, 360px);
+    height: min(78vw, 360px);
+    top: -8%;
+    left: -18%;
+  }
+
+  .orb-blue {
+    width: min(82vw, 400px);
+    height: min(82vw, 400px);
+    bottom: -12%;
+    right: -20%;
+  }
+}
+
 @media (max-width: 420px) {
   .card {
     padding: 30px 22px 24px;
@@ -236,5 +376,12 @@ body {
   .btn-primary {
     font-size: 13.5px;
     padding: 13px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-pink,
+  .orb-blue {
+    animation: none;
   }
 }
